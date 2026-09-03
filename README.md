@@ -70,5 +70,13 @@ npm pack --dry-run
 ## Publish a release
 
 Add an npm automation token to the GitHub repository as the `NPM_TOKEN` Actions
-secret. Publishing a GitHub release runs the test suite and publishes its matching
-package version to npm with provenance.
+secret. Trigger a stable release by adding this trailer to the HEAD commit on
+`main`:
+
+```text
+release: true
+```
+
+Use `pre-release: true` for an alpha release. The workflow calculates the next
+version from Conventional Commit messages, publishes it to npm with provenance,
+then creates the matching GitHub release and tag.

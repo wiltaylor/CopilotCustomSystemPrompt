@@ -1,0 +1,123 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      force_release:
+        description: Force a stable release without a commit trailer
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  version:
+    name: Calculate version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.calc.outputs.version }}
+      do_release: ${{ steps.calc.outputs.do_release }}
+      prerelease: ${{ steps.calc.outputs.prerelease }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - id: calc
+        shell: bash
+        run: |
+          IS_RELEASE=$(git log -1 --format='%(trailers:key=release,valueonly)')
+          IS_PRERELEASE=$(git log -1 --format='%(trailers:key=pre-release,valueonly)')
+          FORCE="${{ inputs.force_release }}"
+
+          if [[ "$IS_RELEASE" != "true" && "$IS_PRERELEASE" != "true" && "$FORCE" != "true" ]]; then
+            echo "No release trailer on HEAD."
+            echo "version=0.0.0-dev" >> "$GITHUB_OUTPUT"
+            echo "do_release=false" >> "$GITHUB_OUTPUT"
+            echo "prerelease=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          LAST_TAG=$(git describe --tags --match 'v*' --abbrev=0 2>/dev/null || true)
+          if [[ -z "$LAST_TAG" ]]; then
+            VERSION=$(node -p "require('./package.json').version")
+          else
+            BASE="${LAST_TAG#v}"
+            BASE="${BASE%%-*}"
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$BASE"
+            RANGE="${LAST_TAG}..HEAD"
+            BUMP=patch
+
+            while IFS= read -r HASH; do
+              SUBJECT=$(git log -1 --format='%s' "$HASH")
+              BODY=$(git log -1 --format='%b' "$HASH")
+              if echo "$SUBJECT" | grep -qE '^[a-z]+(\(.+\))?!:' || echo "$BODY" | grep -qiE '^BREAKING[ -]CHANGE:'; then
+                BUMP=major
+                break
+              fi
+              if echo "$SUBJECT" | grep -qE '^feat(\(.+\))?:'; then
+                BUMP=minor
+              fi
+            done < <(git log --format='%H' "$RANGE")
+
+            case "$BUMP" in
+              major) VERSION="$((MAJOR + 1)).0.0" ;;
+              minor) VERSION="${MAJOR}.$((MINOR + 1)).0" ;;
+              patch) VERSION="${MAJOR}.${MINOR}.$((PATCH + 1))" ;;
+            esac
+          fi
+
+          PRERELEASE=false
+          if [[ "$IS_PRERELEASE" == "true" ]]; then
+            VERSION="${VERSION}-alpha.${{ github.run_number }}"
+            PRERELEASE=true
+          fi
+
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "do_release=true" >> "$GITHUB_OUTPUT"
+          echo "prerelease=$PRERELEASE" >> "$GITHUB_OUTPUT"
+
+  publish:
+    name: Publish npm package
+    needs: version
+    if: needs.version.outputs.do_release == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Stamp package version
+        run: npm version "${{ needs.version.outputs.version }}" --no-git-tag-version
+      - run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  release:
+    name: Create GitHub release
+    needs: [version, publish]
+    if: needs.version.outputs.do_release == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Create tag and release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.version.outputs.version }}
+        run: |
+          gh release create "v${VERSION}" \
+            --target "$GITHUB_SHA" \
+            --title "v${VERSION}" \
+            --generate-notes \
+            ${{ needs.version.outputs.prerelease == 'true' && '--prerelease' || '' }}
