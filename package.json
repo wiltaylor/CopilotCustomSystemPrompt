@@ -1,0 +1,55 @@
+{
+  "name": "copilot-custom-system-prompt",
+  "version": "0.1.0",
+  "description": "Load replacement and appended system prompts into GitHub Copilot CLI sessions.",
+  "homepage": "https://github.com/wiltaylor/CopilotCustomSystemPrompt#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wiltaylor/CopilotCustomSystemPrompt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wiltaylor/CopilotCustomSystemPrompt/issues"
+  },
+  "type": "module",
+  "bin": {
+    "copilot-custom-system-prompt": "dist/install.js"
+  },
+  "files": [
+    "dist/install.d.ts",
+    "dist/install.js",
+    "dist/install.js.map",
+    "dist/prompts.d.ts",
+    "dist/prompts.js",
+    "dist/prompts.js.map",
+    "extensions/",
+    "plugin.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && esbuild src/extension.ts --bundle --platform=node --format=esm --external:@github/copilot-sdk --outfile=extensions/copilot-custom-system-prompt/extension.mjs",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && node --test tests/*.test.js",
+    "prepack": "npm test"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "keywords": [
+    "github-copilot",
+    "copilot-cli",
+    "copilot-extension",
+    "system-prompt"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "devDependencies": {
+    "@github/copilot-sdk": "1.0.11",
+    "@types/node": "24.3.0",
+    "esbuild": "0.25.9",
+    "typescript": "5.9.2"
+  }
+}

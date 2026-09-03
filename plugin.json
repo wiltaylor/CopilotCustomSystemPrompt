@@ -1,0 +1,6 @@
+{
+  "name": "copilot-custom-system-prompt",
+  "version": "0.1.0",
+  "description": "Load replacement and appended system prompts into GitHub Copilot CLI sessions.",
+  "extensions": "extensions"
+}
