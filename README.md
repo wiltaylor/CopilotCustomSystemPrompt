@@ -1,5 +1,9 @@
 # Copilot Custom System Prompt
 
+<p align="center">
+  <img src="assets/logo.png" alt="Silenced robot terminal logo" width="240">
+</p>
+
 Load replacement and appended system prompts into the ordinary GitHub Copilot
 CLI interface. The extension uses Copilot SDK's supported `systemMessage` API,
 so Copilot keeps its native authentication, subscription billing, tools, and
