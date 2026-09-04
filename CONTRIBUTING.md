@@ -15,7 +15,7 @@ Install the dependencies and build the extension:
 
 ```sh
 just dependencies-install
-just source-build
+just build
 ```
 
 Load the repository directly in Copilot CLI:
@@ -41,7 +41,7 @@ just ci::check
 ```
 
 Run `just` to list individual build, formatting, test, package, and installation
-tasks. Run `just source-format` before submitting changes.
+tasks. Run `just format` before submitting changes.
 
 ## Commits
 

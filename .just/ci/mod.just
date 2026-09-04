@@ -8,5 +8,4 @@ main:
 
 # Run everything a change must pass before merge
 [group('ci')]
-check: dependencies-install source-format-check source-typecheck source-test package-check
-
+check: dependencies-install format-check typecheck test package-check

@@ -10,27 +10,27 @@ dependencies-install: require-node
 
 # Build the distributable extension and installer
 [group('development')]
-source-build: require-node
+build: require-node
 	npm run build
 
 # Format source code and project files
 [group('development')]
-source-format: require-node
+format: require-node
 	npm run format
 
 # Check source code and project file formatting
 [group('development')]
-source-format-check: require-node
+format-check: require-node
 	npm run format:check
 
 # Run the TypeScript compiler checks
 [group('development')]
-source-typecheck: require-node
+typecheck: require-node
 	npm run check
 
 # Run the test suite
 [group('development')]
-source-test: require-node
+test: require-node
 	npm test
 
 # Inspect the files that would be published to npm
@@ -43,4 +43,3 @@ package-check: require-node
 extension-install: require-node
 	npm run build
 	node dist/install.js install --force
-
