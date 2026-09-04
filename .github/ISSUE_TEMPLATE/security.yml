@@ -1,0 +1,38 @@
+name: Security concern
+description: Report a non-sensitive security concern or request security hardening.
+title: "[Security]: "
+labels:
+  - security
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not disclose exploitable vulnerabilities, secrets, or personal information in a public issue.
+        Report vulnerabilities privately through [GitHub's security advisory form](https://github.com/wiltaylor/CopilotCustomSystemPrompt/security/advisories/new).
+  - type: checkboxes
+    id: disclosure
+    attributes:
+      label: Public disclosure check
+      options:
+        - label: This report contains no exploit details, secrets, or other sensitive information.
+          required: true
+  - type: textarea
+    id: concern
+    attributes:
+      label: Security concern
+      description: Describe the non-sensitive concern or hardening request.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Potential impact
+      description: Explain which users or components could be affected without including exploit details.
+    validations:
+      required: true
+  - type: textarea
+    id: recommendation
+    attributes:
+      label: Suggested mitigation
+      description: Describe a possible mitigation if you have one.
+
