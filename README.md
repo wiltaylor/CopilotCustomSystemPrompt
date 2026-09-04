@@ -38,17 +38,6 @@ during an upgrade, run:
 copilot-custom-system-prompt install --force
 ```
 
-The package has not been published yet. During local development, run
-`npm link` before the installation command.
-
-To load the repository directly during development:
-
-```sh
-npm install
-npm run build
-copilot --experimental --plugin-dir .
-```
-
 ## Configure prompts
 
 Create either prompt file under `~/.copilot/`:
@@ -62,24 +51,7 @@ and appends `APPEND_SYSTEM.md` to that replacement.
 Restart Copilot CLI after you change either file. Set `COPILOT_HOME` if your
 Copilot configuration lives somewhere other than `~/.copilot`.
 
-## Development
+## Contributing
 
-Run the complete local check:
-
-```sh
-npm test
-npm pack --dry-run
-```
-
-## Publish a release
-
-npm authenticates this repository through trusted publishing with GitHub Actions.
-Trigger a stable release by adding this trailer to the HEAD commit on `main`:
-
-```text
-release: true
-```
-
-Use `pre-release: true` for an alpha release. The workflow calculates the next
-version from Conventional Commit messages, publishes it to npm with provenance,
-then creates the matching GitHub release and tag.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for local development, testing, and release
+instructions.
