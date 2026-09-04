@@ -22,10 +22,10 @@ body:
     id: alternatives
     attributes:
       label: Alternatives considered
-      description: Describe any workarounds or alternative designs you considered.
+      description:
+        Describe any workarounds or alternative designs you considered.
   - type: textarea
     id: context
     attributes:
       label: Additional context
       description: Add examples, screenshots, or related links if useful.
-

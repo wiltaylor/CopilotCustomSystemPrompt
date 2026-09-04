@@ -6,7 +6,9 @@ labels:
 body:
   - type: markdown
     attributes:
-      value: Thanks for reporting a bug. Remove secrets and personal information before submitting.
+      value:
+        Thanks for reporting a bug. Remove secrets and personal information
+        before submitting.
   - type: textarea
     id: description
     attributes:
@@ -18,7 +20,8 @@ body:
     id: reproduction
     attributes:
       label: Reproduction steps
-      description: Provide the smallest sequence that consistently reproduces the problem.
+      description:
+        Provide the smallest sequence that consistently reproduces the problem.
       placeholder: |
         1. Install ...
         2. Run ...
@@ -51,6 +54,7 @@ body:
     id: logs
     attributes:
       label: Relevant output
-      description: Paste relevant logs or terminal output. Remove tokens and other sensitive values.
+      description:
+        Paste relevant logs or terminal output. Remove tokens and other
+        sensitive values.
       render: shell
-

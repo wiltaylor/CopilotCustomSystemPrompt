@@ -29,6 +29,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json && esbuild src/extension.ts --bundle --platform=node --format=esm --external:@github/copilot-sdk --outfile=extensions/copilot-custom-system-prompt/extension.mjs",
     "check": "tsc -p tsconfig.json --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "npm run build && node --test tests/*.test.js",
     "prepack": "npm test"
   },
@@ -50,6 +52,7 @@
     "@github/copilot-sdk": "1.0.11",
     "@types/node": "24.3.0",
     "esbuild": "0.25.9",
+    "prettier": "3.9.6",
     "typescript": "5.9.2"
   }
 }

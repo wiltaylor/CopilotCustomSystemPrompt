@@ -1,5 +1,6 @@
 name: Security concern
-description: Report a non-sensitive security concern or request security hardening.
+description:
+  Report a non-sensitive security concern or request security hardening.
 title: "[Security]: "
 labels:
   - security
@@ -14,7 +15,9 @@ body:
     attributes:
       label: Public disclosure check
       options:
-        - label: This report contains no exploit details, secrets, or other sensitive information.
+        - label:
+            This report contains no exploit details, secrets, or other sensitive
+            information.
           required: true
   - type: textarea
     id: concern
@@ -27,7 +30,9 @@ body:
     id: impact
     attributes:
       label: Potential impact
-      description: Explain which users or components could be affected without including exploit details.
+      description:
+        Explain which users or components could be affected without including
+        exploit details.
     validations:
       required: true
   - type: textarea
@@ -35,4 +40,3 @@ body:
     attributes:
       label: Suggested mitigation
       description: Describe a possible mitigation if you have one.
-

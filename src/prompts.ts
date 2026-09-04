@@ -25,7 +25,9 @@ export function copilotHome(): string {
   return process.env.COPILOT_HOME ?? join(homedir(), ".copilot");
 }
 
-export async function loadPromptFiles(root = copilotHome()): Promise<PromptFiles> {
+export async function loadPromptFiles(
+  root = copilotHome(),
+): Promise<PromptFiles> {
   const [replacement, appended] = await Promise.all([
     readOptional(join(root, "SYSTEM.md")),
     readOptional(join(root, "APPEND_SYSTEM.md")),
@@ -33,7 +35,9 @@ export async function loadPromptFiles(root = copilotHome()): Promise<PromptFiles
   return { replacement, appended };
 }
 
-export function systemMessageConfig(files: PromptFiles): SystemMessageConfig | undefined {
+export function systemMessageConfig(
+  files: PromptFiles,
+): SystemMessageConfig | undefined {
   if (files.replacement) {
     const content = files.appended
       ? `${files.replacement.trimEnd()}\n\n${files.appended.trimStart()}`

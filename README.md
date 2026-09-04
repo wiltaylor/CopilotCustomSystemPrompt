@@ -31,8 +31,7 @@ copilot --experimental
 ```
 
 Without `--experimental`, Copilot 1.0.82 discovers the plugin but does not load
-its extension. To replace an existing installation
-during an upgrade, run:
+its extension. To replace an existing installation during an upgrade, run:
 
 ```sh
 copilot-custom-system-prompt install --force
@@ -53,5 +52,5 @@ Copilot configuration lives somewhere other than `~/.copilot`.
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for local development, testing, and release
-instructions.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for local development, testing, and
+release instructions.

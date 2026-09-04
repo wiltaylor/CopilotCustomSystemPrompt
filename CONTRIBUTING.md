@@ -14,8 +14,8 @@ comments, before submission.
 Install the dependencies and build the extension:
 
 ```sh
-npm install
-npm run build
+just dependencies-install
+just source-build
 ```
 
 Load the repository directly in Copilot CLI:
@@ -24,27 +24,30 @@ Load the repository directly in Copilot CLI:
 copilot --experimental --plugin-dir .
 ```
 
-To test the global installer during development, link the package and install the
-extension:
+To test the global installer during development, link the package and install
+the extension:
 
 ```sh
 npm link
-copilot-custom-system-prompt install --force
+just extension-install
 ```
 
 ## Tests
 
-Run the tests and inspect the npm package contents:
+Run the complete merge gate:
 
 ```sh
-npm test
-npm pack --dry-run
+just ci::check
 ```
+
+Run `just` to list individual build, formatting, test, package, and installation
+tasks. Run `just source-format` before submitting changes.
 
 ## Commits
 
-Write commit messages using the [Conventional Commits](https://www.conventionalcommits.org/)
-format. For example:
+Write commit messages using the
+[Conventional Commits](https://www.conventionalcommits.org/) format. For
+example:
 
 ```text
 feat: add configurable prompt paths
@@ -54,8 +57,9 @@ docs: clarify installation steps
 
 ## Releases
 
-npm authenticates this repository through trusted publishing with GitHub Actions.
-Trigger a stable release by adding this trailer to the HEAD commit on `main`:
+npm authenticates this repository through trusted publishing with GitHub
+Actions. Trigger a stable release by adding this trailer to the HEAD commit on
+`main`:
 
 ```text
 release: true
