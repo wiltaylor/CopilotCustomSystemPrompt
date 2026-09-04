@@ -40,9 +40,8 @@ Run the complete merge gate:
 just ci::check
 ```
 
-Run `just ci` to list individual build, formatting, test, package, and
-installation tasks. Top-level aliases let you run them without the `ci::`
-prefix. Run `just format` before submitting changes. Use `just lint` to check
+Run `just` to list individual build, formatting, test, package, and installation
+tasks. Run `just format` before submitting changes. Use `just lint` to check
 formatting and types together.
 
 ## Commits
