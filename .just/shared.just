@@ -28,6 +28,10 @@ format-check: require-node
 typecheck: require-node
 	npm run check
 
+# Run all static checks
+[group('development')]
+lint: format-check typecheck
+
 # Run the test suite
 [group('development')]
 test: require-node

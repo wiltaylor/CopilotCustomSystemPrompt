@@ -41,7 +41,8 @@ just ci::check
 ```
 
 Run `just` to list individual build, formatting, test, package, and installation
-tasks. Run `just format` before submitting changes.
+tasks. Run `just format` before submitting changes. Use `just lint` to check
+formatting and types together.
 
 ## Commits
 
