@@ -1,5 +1,14 @@
 # Contributing
 
+## Contribution process
+
+Create an issue before starting work or opening a pull request. Use the issue to
+describe the problem, proposed change, and intended scope.
+
+AI-assisted contributions are welcome. A human must review all contributed code
+and all project communication, including issues, pull requests, reviews, and
+comments, before submission.
+
 ## Local development
 
 Install the dependencies and build the extension:
