@@ -101,8 +101,6 @@ jobs:
       - name: Stamp package version
         run: npm version "${{ needs.version.outputs.version }}" --no-git-tag-version --allow-same-version
       - run: npm publish --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   release:
     name: Create GitHub release

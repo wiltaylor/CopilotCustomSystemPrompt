@@ -73,9 +73,8 @@ npm pack --dry-run
 
 ## Publish a release
 
-Add an npm automation token to the GitHub repository as the `NPM_TOKEN` Actions
-secret. Trigger a stable release by adding this trailer to the HEAD commit on
-`main`:
+npm authenticates this repository through trusted publishing with GitHub Actions.
+Trigger a stable release by adding this trailer to the HEAD commit on `main`:
 
 ```text
 release: true
