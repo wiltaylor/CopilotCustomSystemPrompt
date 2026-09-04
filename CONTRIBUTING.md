@@ -41,6 +41,17 @@ npm test
 npm pack --dry-run
 ```
 
+## Commits
+
+Write commit messages using the [Conventional Commits](https://www.conventionalcommits.org/)
+format. For example:
+
+```text
+feat: add configurable prompt paths
+fix: preserve trailing prompt content
+docs: clarify installation steps
+```
+
 ## Releases
 
 npm authenticates this repository through trusted publishing with GitHub Actions.
